@@ -1,3 +1,5 @@
+#Written by Nick Loman @pathogenomenick
+
 import os
 import os.path
 import sys
