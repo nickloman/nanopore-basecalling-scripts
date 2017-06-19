@@ -10,7 +10,7 @@ Some simple scripts to ease management and local basecalling of millions of FAST
 These scripts are designed to help with the following (common) occurrences:
 
   * Albacore crashing/disk filling/lost power during a basecalling run; wishing to start back where you left off.
-  * Live basecalling on a server while files are being synchronised into a directory.
+  * Live basecalling on a server while files are being synchronised over the network in real-time from a MinKNOW PC.
   * Directories getting muddled with the results of multiple sequencing runs from diffrent flowcells.
 
 ## Basic usage
