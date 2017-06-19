@@ -25,19 +25,23 @@ To run the scripts, we suggest the following pipeline
 
 ### Stage files
 
-Symlink all the files that need to be processed into ``staging``:
+This step will make a symbolic link to all the files that need to be processed in ``staging``. It won't stage files that have already been basecalled (as determined by their file name):
 
   ``python stageflowcells.py data basecalls staging``
 
 ### Basecall
 
-As normal with Albacore, substituting $flowcell as appropriate:
+Basecall as normal with Albacore, substituting $flowcell as appropriate:
 
-  ``read_fast5_basecaller.py -i staging/$flowcell -s basecalls/$flowcell ...``
+  ``read_fast5_basecaller.py -r -i staging/$flowcell -s basecalls/$flowcell ...``
 
 ### Live Basecalling
 
-Run the following two commands, then nuke the staging directory. Loop and repeat.
+If synchronising from the MinKNOW PC to a server you can run stageflowcells.py and then Albacore in a loop, nuking the staging directory each time, i.e.:
+
+   rm -rf staging
+   python stageflowcells.py data basecalls staging
+   read_fast5_basecaller.py -r -i staging/$flowcell -s basecalls/$flowcell ...
 
 ## How to sync to a server
 
