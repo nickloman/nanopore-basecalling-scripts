@@ -71,6 +71,9 @@ Don't use that flag if you want to keep a local copy- but try to move the files 
 
 An alternative approach suggested by Mick Watson is to copy to a remote server via a network share (e.g. a SAMBA share) and use Robocopy.exe on Windows.
 
+## Related projects
+
+   * Please see Alexis Luccatini's [https://github.com/alexiswl/poreduck](Poreduck) for another take on this problem.
 
 
 
