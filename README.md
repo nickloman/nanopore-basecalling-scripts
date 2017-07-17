@@ -74,7 +74,6 @@ An alternative approach suggested by Mick Watson is to copy to a remote server v
 ## Related projects
 
    * Please see Alexis Luccatini's [Poreduck](https://github.com/alexiswl/poreduck) for another take on this problem.
-re
 
 
 
