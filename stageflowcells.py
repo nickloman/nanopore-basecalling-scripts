@@ -26,7 +26,7 @@ def run(args):
 
 	for root, dirs, files in os.walk(args.prebasecalled, topdown=False):
 		for name in files:
-			if name not in basecalled_files:
+			if name not in basecalled_files and name.endswith('.fast5'):
 				flowcell = ''
 				samplename = ''
 				f = re.search('_2\d{7}_(F.*?)_', name)
@@ -44,7 +44,7 @@ def run(args):
 					directory_name = ''
 				else:
 					if flowcell and name:
-						directory_name = "%s-%s" % (flowcell, samplename)
+						directory_name = "%s/%s" % (flowcell, samplename)
 					elif name:
 						directory_name = samplename
 					else:
