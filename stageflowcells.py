@@ -24,17 +24,31 @@ def run(args):
 			if name.endswith('.fast5'):
 				basecalled_files.add(name)
 
+	already_processed = set()
+
 	for root, dirs, files in os.walk(args.prebasecalled, topdown=False):
-		for name in files:
-			if name not in basecalled_files and name.endswith('.fast5'):
+		for filename in files:
+			if filename.endswith('.tmp'):
+				name = filename[0:len(filename)-4]
+			else:
+				name = filename
+			
+			if name not in basecalled_files and \
+                           name.endswith('.fast5') and \
+                           name not in already_processed:
 				flowcell = ''
 				samplename = ''
+
 				f = re.search('_2\d{7}_(F.*?)_', name)
 				if f:
 					flowcell = f.group(1)
 				f = re.search('_(sequencing_run|mux_scan)_(.*)_\d+_read', name)
 				if f:
 					samplename = f.group(2)
+				else:
+					f = re.search('_(sequencing_run|mux_scan)_(.*)_ch(\d+)_read(\d+)', name)
+					if f:
+						samplename = f.group(2)
 
 				if args.organiseby == 'flowcell' and flowcell:
 					directory_name = flowcell
@@ -56,12 +70,15 @@ def run(args):
 				checkdir = args.staging + '/' + directory_name + '/' + albacore_root
 				if not os.path.exists(checkdir):
 					os.makedirs(checkdir)
-				movefrom = args.prebasecalled + '/' + albacore_root + '/' + name
+				movefrom = args.prebasecalled + '/' + albacore_root + '/' + filename
 				moveto = args.staging + '/' + directory_name + '/' + albacore_root + '/' + name
+
 				print("Copy %s to %s" % (movefrom, moveto))
 
 				abspath = os.path.abspath(movefrom)
 				os.symlink(abspath, moveto)
+
+				already_processed.add(name)
 
 parser = argparse.ArgumentParser(description='Stage files for processing.')
 parser.add_argument('prebasecalled', 
