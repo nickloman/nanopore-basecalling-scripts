@@ -16,6 +16,8 @@ try:
 except ImportError:
     from scandir import scandir
 
+# Modified version of scandir.walk that doesn't stat() symlinks to check if they are directories
+
 def walk(top, topdown=True, onerror=None, followlinks=False):
     """Like Python 3.5's implementation of os.walk() -- faster than
     the pre-Python 3.5 version as it uses scandir() internally.
